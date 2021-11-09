@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import com.reto3.barcos.reportes.ContadorClientes;
+import com.reto3.barcos.reportes.StatusReservas;
 
 /**
  *
@@ -57,4 +59,19 @@ public class WebReservacion {
     public boolean delete(@PathVariable("id") int reservationId) {
         return servicio.deleteReservation(reservationId);
     }
+
+    @GetMapping("/report-status")
+    public StatusReservas getReservas(){
+        return servicio.reporteStatusServicio();
+    }
+    
+    @GetMapping("/report-dates/{dateOne}/{dateTwo}")
+     public List<Reservacion> getReservasTiempo (@PathVariable("dateOne")String dateOne, @PathVariable("dateTwo")String dateTwo ){
+         return servicio.reporteTiempoServicio(dateOne, dateTwo);
+     }
+     
+     @GetMapping("/report-clients")
+     public List<ContadorClientes> getClientes(){
+         return servicio.reporteClientesServicio();
+     }
 }
